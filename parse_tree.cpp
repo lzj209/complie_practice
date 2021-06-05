@@ -494,7 +494,6 @@ void VardefNode :: init()
         ExpressionNode *o = left;
         while(o)
         {
-            assert(o->type == T_NUM || o->type == T_NOP);
             v.shape.push_back(o->result);
             v.base.push_back(0);
             o = o->nxt;
