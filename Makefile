@@ -21,10 +21,9 @@ clean:
 	rm -rf compiler *.o sysy.yy.cpp sysy.tab.cpp sysy.tab.hpp outputs
 
 
-test_case_dir = open-test-cases/sysy/section1/functional_test/
-output_dir = outputs/
-testcase= 32_while_if_test3
-
+test_case_dir=/Users/lizongjia/Documents/code/compile_practice/open-test-cases/sysy/section1/functional_test/
+output_dir=outputs/
+testcase=32_while_if_test3
 
 test: compiler
 	./compiler -S -e ${test_case_dir}${testcase}.sy -o ${output_dir}${testcase}.eeyore

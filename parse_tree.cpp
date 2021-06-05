@@ -25,7 +25,7 @@ int fuc_num = 0; //number of functions
 Function* current_func; // current function, "0" is global
 int T_num = 0;
 int tmp_num = 0; //number of tmp variables
-int p_num = 0;
+int p_num = -1;
 int current_block = 0; //number of the block, 0 is global
 int label_num = 0;
 vector<FuncDefNode*> final_pool;
@@ -51,6 +51,7 @@ void calc_final_code()
         final_pool[i]->make_final_code();
         final_code = Concat(final_code, final_pool[i]->code);
     }
+    final_code += "\n";
 }
 
 struct while_info
@@ -188,7 +189,14 @@ void ExpressionNode :: deal_with_cond(int true_label, int false_label)
 {
     if(type!=T_Logical)
     {
-        if(op == EQ || op == NE || op == LE || op == GE || op ==GT || op == LT)
+        if(type == T_NUM)
+        {
+            string tmp_code;
+            if(result!=0)  tmp_code = "goto l" + to_string(false_label);
+            else tmp_code = "goto l" + to_string(true_label);
+            code = tmp_code;
+        }
+        else if(op == EQ || op == NE || op == LE || op == GE || op ==GT || op == LT)
         {
             string tmp_code = "if " + code + " goto l" + to_string(true_label);
             code = childs_code;
@@ -430,7 +438,7 @@ void ExpressionNode :: init()
                 right->make_tmp();
                 right->make_final_code();
                 childs_code = Concat(left->code, right->code);
-                code = left->name_eeyore + op_map[op] + right->name_eeyore;
+                code = left->name_eeyore + " " + op_map[op] + " " +right->name_eeyore;
                 return;
             }
         }
@@ -567,7 +575,7 @@ void FuncDefNode :: registe_func()
 {
     func_table[f.name_sysy] = &f;
     current_func = &f;
-    p_num = 0;
+    p_num = -1;
     VardefNode *o = son;
     while(o)
     {
