@@ -28,7 +28,7 @@ NEWLINE         [\n\r]
 DECCONST        [1-9][0-9]*
 OCTCONST        0[0-7]*
 HEXCONST        (0x|0X)[0-9a-fA-F]+          
-SINGLEOPERATOR  [\+\-\*\/%<>;,\(\)\{\}\[\]=]
+SINGLEOPERATOR  [!\+\-\*\/%<>;,\(\)\{\}\[\]=]
 IDENTIFIER      [_a-zA-Z][_a-zA-Z0-9]*
 ILLEGALCHAR     .
 
