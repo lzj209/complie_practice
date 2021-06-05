@@ -468,7 +468,7 @@ void ExpressionNode :: init()
                 left->make_tmp();
                 left->make_final_code();
                 childs_code = left->code;
-                code = op_map[op] + left->name_eeyore;
+                code = op_map[op] + " " + left->name_eeyore;
                 return;
             }
         }
