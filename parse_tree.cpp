@@ -192,7 +192,7 @@ void ExpressionNode :: deal_with_cond(int true_label, int false_label)
         if(type == T_NUM)
         {
             string tmp_code;
-            if(result!=0)  tmp_code = "goto l" + to_string(false_label);
+            if(result==0)  tmp_code = "goto l" + to_string(false_label);
             else tmp_code = "goto l" + to_string(true_label);
             code = tmp_code;
         }
