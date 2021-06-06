@@ -681,4 +681,5 @@ void StmtNode :: accumulate_code()
         code = Concat(code, o->code);
         o = o->nxt;
     }
+    has_accumulated = true;
 }

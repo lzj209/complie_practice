@@ -1,8 +1,0 @@
-f_main [0]
-var T1
-var t1
-T1 = 1
-t1 = ! T1
-T1 = t1
-return T1
-end f_main

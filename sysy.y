@@ -21,6 +21,22 @@ void set_next(ExpressionNode *o, ExpressionNode *p)
         o = o->nxt;
     o->nxt = p;
 }
+
+
+void set_next(StmtNode *o, StmtNode *p)
+{
+    if(!o->has_accumulated)
+    {
+        while(o->nxt)
+            o = o->nxt;
+        o->nxt = p;
+    }
+    else 
+    {
+        o->nxt = p;
+        o->has_accumulated = false;
+    }
+}
 %}
 
 %token RETURN IF ELSE WHILE CONTINUE BREAK CONST INT VOID T_LE T_GE T_EQ T_NE T_AND T_OR 
@@ -48,8 +64,8 @@ ConstDecl     : CONST INT ConstDefs ';'             {$$ = $3;}
 
 
 
-ConstDefs     : ConstDef                            {$1->make_final_code(); $$ = new StmtNode(T_NOP); $$->code = $1->code;}
-              | ConstDefs ',' ConstDef              {$3->make_final_code(); $$ = new StmtNode(T_NOP); $$->code = $3->code; $1 -> nxt = $$;}
+ConstDefs     : ConstDef                            {$1->make_final_code(); $$ = new StmtNode(T_VarDef); $$->code = $1->code;}
+              | ConstDefs ',' ConstDef              {$3->make_final_code(); $$ = $1; StmtNode* p = new StmtNode(T_VarDef); p->code = $3->code; set_next($1, p);}
 
 
 ConstDef      : ConstArrayDef '=' ConstInitVal      {$$ = $1; $$->right = $3;}
@@ -73,8 +89,8 @@ ConstInitVals : ConstInitVal                        {$$ = $1;}
 
 VarDecl       : INT VarDefs ';'                     {$$ = $2;}
 
-VarDefs       : VarDef                              {$1->make_final_code(); $$ = new StmtNode(T_NOP); $$->code = $1->code;}
-              | VarDefs ',' VarDef                  {$3->make_final_code(); $$ = new StmtNode(T_NOP); $$->code = $3->code; $1 -> nxt = $$;} 
+VarDefs       : VarDef                              {$1->make_final_code(); $$ = new StmtNode(T_VarDef); $$->code = $1->code;}
+              | VarDefs ',' VarDef                  {$3->make_final_code(); $$ = $1; StmtNode* p = new StmtNode(T_VarDef); p->code = $3->code; set_next($1, p);} 
 
 VarDef        : VarArrayDef '=' InitVal             {$$ = $1; $$->right = $3;}
               | VarArrayDef                         {$$ = $1; $$->right = NULL;}
@@ -105,7 +121,7 @@ FuncFParam    : INT IDENT                           {$$ = new VardefNode(false, 
 
 Block         : '{' Inc BlockItems '}' Dec          {$$ = $3; $$->accumulate_code();}
 
-BlockItems    : BlockItem BlockItems                {$$ = $1; $$->nxt = $2;}
+BlockItems    : BlockItem BlockItems                {$$ = $1; set_next($$, $2);}
               |                                     {$$ = new StmtNode(T_NOP);}
 
 BlockItem     : Decl                                {$$ = $1;} 

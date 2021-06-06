@@ -23,7 +23,7 @@ clean:
 
 test_case_dir=mycases/
 output_dir=outputs/
-testcase=uniop
+testcase=arrdefn
 
 test: compiler
 	./compiler -S -e ${test_case_dir}${testcase}.sy -o ${output_dir}${testcase}.eeyore

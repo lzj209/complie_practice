@@ -194,6 +194,7 @@ struct StmtNode : Node
     ExpressionNode *cond;
     StmtNode *S1, *S2;
     ExpressionNode *left, *right;
+    bool has_accumulated;
     StmtNode(VALUE_TYPE _type, ExpressionNode *_cond = NULL, ExpressionNode *_left = NULL,
      ExpressionNode* _right = NULL, StmtNode *_S1 = NULL, StmtNode *_S2 = NULL)
     {
@@ -205,6 +206,7 @@ struct StmtNode : Node
         S1 = _S1;
         S2 = _S2;
         code = "";
+        has_accumulated = false;
         make_final_code();
     }
     void make_final_code();
