@@ -114,16 +114,17 @@ void inc_init_blk()
 
 void dec_init_blk()
 {
+    initblock-=1;
     int ninitpos = initpos;
     int current_base;
     if(initblock == -1)
         current_base = current_variable -> total_size;    
     else
         current_base = current_variable -> base[initblock];
-    ninitpos = ((initpos/current_base) + 1) * current_base -1;
-    for(int i=initpos;i<ninitpos;i++) 
-        current_variable -> values[i] = 0;
-    initblock-=1;
+    ninitpos = (((initpos-1)/current_base) + 1) * current_base;
+    for(int i=initpos;i<ninitpos;i+=4) 
+        current_variable -> values[i/4] = 0;
+    initpos = ninitpos;
 }
 
 void Init()
@@ -177,7 +178,7 @@ void ExpressionNode :: update_pos()
 {
     poa = initpos;
     if(type == T_NUM)
-        current_variable -> values[poa] = result;
+        current_variable -> values[poa/4] = result;
     initpos += 4;
     return;
 }
@@ -339,7 +340,7 @@ void ExpressionNode :: init()
                 if(last_tmp == "" && info -> is_const) //is a const
                 {
                     type = T_NUM;
-                    result = info -> values[tmp_result];
+                    result = info -> values[tmp_result/4];
                     name_eeyore = to_string(result);
                     code = name_eeyore;
                     return;
