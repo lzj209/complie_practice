@@ -32,9 +32,13 @@ vector<FuncDefNode*> final_pool;
 
 string root_init_code = "";
 
-void inc_root_init_code(string code)
+void inc_root_init_code(StmtNode *o)
 {
-    root_init_code = Concat(root_init_code, code);
+    while(o)
+    {
+        root_init_code = Concat(root_init_code, o->code);
+        o = o->nxt;
+    }
 }
 
 void combine_final_code(FuncDefNode* o)

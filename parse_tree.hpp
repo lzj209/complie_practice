@@ -44,7 +44,7 @@ enum VALUE_TYPE {T_NUM, T_TMP, T_VAR, T_FUNCAL, T_UNK, T_NOP, T_VarDef, T_FuncDe
 
 extern string final_code;
 extern string root_init_code;
-void inc_root_init_code(string code);
+void inc_root_init_code(StmtNode* o);
 void inc_init_blk();
 void dec_init_blk();
 void inc_blk();

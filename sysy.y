@@ -36,9 +36,9 @@ void set_next(ExpressionNode *o, ExpressionNode *p)
 %%
 Root          : CompUnit                            {calc_final_code();}
 
-CompUnit      : CompUnit Decl                       {inc_root_init_code($2->code);}
+CompUnit      : CompUnit Decl                       {inc_root_init_code($2);}
               | CompUnit FuncDef                    {combine_final_code($2);}
-              | Decl                                {inc_root_init_code($1->code);}
+              | Decl                                {inc_root_init_code($1);}
               | FuncDef                             {combine_final_code($1);}
               
 Decl          : ConstDecl                           {$$ = $1;} 
