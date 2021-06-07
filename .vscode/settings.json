@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "__nullptr": "cpp",
-        "iosfwd": "cpp",
-        "string": "cpp",
-        "deque": "cpp",
-        "iostream": "cpp"
-    }
-}
