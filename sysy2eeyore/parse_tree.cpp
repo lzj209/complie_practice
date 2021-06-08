@@ -232,47 +232,6 @@ void ExpressionNode :: deal_with_cond(int true_label, int false_label)
         right->deal_with_cond(true_label, false_label);
         code = Concat(code, right->code);
     }
-    /*
-    if(left -> type == T_Logical)
-    {
-        //deal with small logical expressions
-        int tmp_label = label_num++;
-        if(op == OR)
-            left->deal_with_cond(true_label, tmp_label);
-        else 
-            left->deal_with_cond(tmp_label, false_label);
-        code = left->code;
-        code = Concat(code, "l"+to_string(tmp_label)+":");
-    }
-    else 
-    {
-        left->make_tmp();
-        left->make_final_code();
-        code = left->code;
-        string tmp_code = "";
-        if(op == OR)
-            tmp_code = "if " + left->name_eeyore + " == 1 goto l" + to_string(true_label);   
-        else
-            tmp_code = "if " + left->name_eeyore + " == 0 goto l" + to_string(false_label);
-        code = Concat(code, tmp_code);
-        
-    }
-    if(right->type == T_Logical)
-    {
-        right->deal_with_cond(true_label, false_label);
-        code = Concat(code, right->code);
-    }
-    else 
-    {
-        right->make_tmp();
-        right->make_final_code();
-        string tmp_code = "";
-        tmp_code = "if " + right->name_eeyore + " == 1  goto l" + to_string(true_label);
-        code = Concat(code, tmp_code);
-        tmp_code = "goto l" + to_string(false_label);
-        code = Concat(code, tmp_code);
-    }
-    */
 }
 
 void ExpressionNode :: init()
