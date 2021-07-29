@@ -1,2 +1,2 @@
 # 编译实习lab
-本实现使用了三次flex和bison过程，分别将sysy语言翻译成eeyore语言、eeyore语言翻译成tiger语言、tiger语言翻译成riscv语言
+本实现使用了三次flex和bison过程，分别将sysy语言翻译成eeyore语言、eeyore语言翻译成tigger语言、tigger语言翻译成riscv语言
